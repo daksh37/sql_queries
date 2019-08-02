@@ -1,0 +1,13 @@
+
+	"query": {
+		"bool": {
+			"must": {
+				"match": {
+					"atrl": {
+						"query": "ACO",
+						"type": "phrase"
+					}
+				}
+			}
+		}
+	}
