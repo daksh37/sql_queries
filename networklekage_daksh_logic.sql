@@ -22,7 +22,7 @@ facility_npi,
 pa.pcpnpi,split_part(visittype,':',1),
 visitsubtype,pv.planname,pv.ccsdiseasecode,pv.ccsdiseasecodedescription,pa.rn,pa.slid,pv.pcpname,pa.orgn,pa.sln,chapter;
 
---final query bilkul i think perfect
+--final query bilkul i think perfect/orgtin add krna h bas abhi isme
 
 select pv.planname as track ,pa.rn as chapter,pa.orgn as pcp_org_name,pa.slid as pcp_facility_id,
 pa.sln as pcp_facility_name,
@@ -40,5 +40,5 @@ where pv.visitstartdate between '2018-05-01' and '2019-04-30' and pv.payerid = '
 group by
 facility_npi,
 pa.pcpnpi,split_part(visittype,':',1),
-visitsubtype,pv.planname,pv.ccsdiseasecode,pv.ccsdiseasecodedescription,pa.rn,pa.slid,pv.pcpname,pa.orgn,pa.sln,chapter;
+visitsubtype,pv.planname,pv.ccsdiseasecode,pv.ccsdiseasecodedescription,pa.rn,pa.slid,pv.pcpname,pa.orgn,pa.sln;
 
