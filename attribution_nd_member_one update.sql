@@ -23,6 +23,31 @@ z_active_flg,
 z_elg_flg as z_elg_flg,
 UPPER(TRIM(Rn)) as chapter  from attribution_total where atrl = 'Payer' ;
 
+Create table payer_attribution_2_snapshot as select distinct empi as member_empi,
+Atrdt as attribution_date,
+Plid as plan_id,
+Atrl as attribution_logic,
+UPPER(TRIM(Plnm)) as plan_name,
+Prid as payer_id,
+UPPER(TRIM(Prnm)) as payer_name,
+Pcpnpi as pcp_npi,
+UPPER(TRIM(Pcpn)) as pcp_name,
+slnpi as practice_npi,
+UPPER(TRIM(sln)) as practice_name,
+Orgtin as org_tin, 
+UPPER(TRIM(Orgn)) as org_name ,
+Acoid as aco_id,
+UPPER(TRIM(Acon)) as aco_name,
+Pipid as pipeline_id,
+Dod as date_of_death,
+empi || '|' || substring(cast(atrdt as text) from 1 for 7) || prid || plid as empi_month_year_payer_plan,
+slid as fcid,
+orgid as orgid,
+rid as rgid,
+z_active_flg,
+z_elg_flg as z_elg_flg,
+UPPER(TRIM(Rn)) as chapter  from attribution_total where atrl = 'Payer' 
+and ((prid='1' and z_active_flg='Y' and z_elg_flg<>'0') or (prid<>'1')) ;
 
 create table payer_attribution_3_test (like payer_attribution_2_test);
 
