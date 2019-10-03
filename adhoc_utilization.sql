@@ -1,3 +1,5 @@
+
+--use distinct
 select lower(planname),lower(pcpregionname),count( visitid) 
 from pd_visit_combined where visitstartdate between '2018-07-01' and '2019-06-30' 
 and ip_readmission_flag_ip_to_ip='1' and payerid='1'
