@@ -16,6 +16,7 @@ where visitstartdate between '2018-07-01' and '2019-06-30'
 and visitsubtype ='SNF Inpatient Claim' and payerid='1'
 group by  lower(planname),lower(pcpregionname);
 
+--use ed flag instead
 select lower(planname),lower(pcpregionname),count(visitid) from pd_visit_combined
 where visitstartdate between '2018-06-01' and '2019-05-31' 
 and visitsubtype like '%Emergency%' and payerid='1'
