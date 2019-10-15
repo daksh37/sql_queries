@@ -8,3 +8,4 @@ union select distinct pcpservicelocationid as fcid, upper(trim(pcpservicelocatio
 union select distinct slid as fcid,upper(trim(practice_name)) as facility_name from quality_measure_new;
 
 CREATE table pcp_dimension_new AS (select distinct npi,upper(trim(name)) as pcp_name from pd_npi_270919 where npi in (select distinct pcpnpi from attribution_snapshot)); 
+create table pcp_dimension_new_1 as select distinct on (npi) * from pcp_dimension_new;
