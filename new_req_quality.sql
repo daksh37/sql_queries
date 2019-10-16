@@ -20,11 +20,12 @@ and date_trunc ('month',measurement_date::date)='2018-12-01' and lower(time_wind
 
 //custom table query
 
-select sub19.member_empi from 
+create table quality_caregap_test as 
+select sub19.member_empi,sub19.measure_id ,sub19.version_id,sub19.key_operand, '1' as caregap_flag from 
 (select  * from quality_measure_new  qmo
 where qmo.qualification_status='DEN' 
-and lower(time_window)='ytd' and payer_id='1' and  date_trunc ('month',measurement_date::date)='2019-06-01') sub19
+and lower(time_window)='ytd' and payer_id='1' and  measurement_date in (select max(measurement_date) from quality_measure_new where payer_id='1')) sub19
 join 
 (select * from quality_measure_new where qualification_status='NUM' 
-and date_trunc ('month',measurement_date::date)='2018-12-01' and lower(time_window)='ytd') sub18 on sub19.member_empi=sub18.member_empi and sub18.measure_id=sub19.measure_id;
-
+and date_trunc ('month',measurement_date::date)='2018-12-01' and lower(time_window)='ytd') sub18 on sub19.member_empi=sub18.member_empi and sub18.measure_id=sub19.measure_id
+;
