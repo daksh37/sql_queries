@@ -18,3 +18,13 @@ and qmo.member_empi in (select member_empi from quality_measure_new where qualif
 and date_trunc ('month',measurement_date::date)='2018-12-01' and lower(time_window)='ytd')
 ;
 
+//custom table query
+
+select sub19.member_empi from 
+(select  * from quality_measure_new  qmo
+where qmo.qualification_status='DEN' 
+and lower(time_window)='ytd' and payer_id='1' and  date_trunc ('month',measurement_date::date)='2019-06-01') sub19
+join 
+(select * from quality_measure_new where qualification_status='NUM' 
+and date_trunc ('month',measurement_date::date)='2018-12-01' and lower(time_window)='ytd') sub18 on sub19.member_empi=sub18.member_empi and sub18.measure_id=sub19.measure_id;
+
