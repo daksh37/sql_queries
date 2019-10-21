@@ -31,8 +31,9 @@ and date_trunc ('month',measurement_date::date)='2018-12-01' and lower(time_wind
 ;
 
 
+
 create table quality_caregap_test as 
-select sub19.member_empi,sub19.measure_id ,sub19.version_id,sub19.key_operand as ko, '1' as caregap_flag ,sub18.value1,sub18.value2,sub18.value1name,sub18.value2name from 
+select sub19.member_empi,sub19.measure_id ,sub19.version_id,sub19.key_operand as ko, '1' as caregap_flag ,sub18.value1,sub18.value2,sub18.value1name,sub18.value2name,sub18.last_visit_date from 
 (select  * from quality_measure_new  qmo
 where qmo.qualification_status='DEN' 
 and lower(time_window)='ytd' and payer_id='1' and  measurement_date in (select max(measurement_date) from quality_measure_new where payer_id='1')) sub19
