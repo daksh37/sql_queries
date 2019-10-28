@@ -1,8 +1,8 @@
-create table network_leakage_output_1 as select track ,pa.rn as chapter,pa.orgn as pcp_org_name,pa.orgtin as pcp_org_tin,pa.slid as pcp_facility_id,pa.sln as pcp_facility_name,
+insert into  network_leakage_output_v2  select track ,pa.rn as chapter,pa.orgn as pcp_org_name,pa.orgtin as pcp_org_tin,pa.slid as pcp_facility_id,pa.sln as pcp_facility_name,
 pa.pcpnpi,pa.pcpn as pcp_name,sum(visitamount) as amount,
 count(distinct visitid) as  visit_count,pv.ccsdiseasecode as ccs_code,pv.ccsdiseasecodedescription as ccs_name,
 visittype,visitsubtype, ftnpi  as facility_npi, servicingproviderNPI,servicingProviderOrgtin,outorgflg,outftnpiflg,case when outorgflg ='IN' then 'ORG_IN'
-when outftnpiflg = 'IN' then  'FACILITY_IN' else 'OUT' end as network_status
+when outftnpiflg = 'IN' then  'FACILITY_IN' else 'OUT' end as network_status,'2019-05-31' as measurementdate
 from  
 (
 select distinct planname as track,empi, pas.visitid,ccsdiseasecode, ccsdiseasecodedescription,ftnpi,spnpi as servicingproviderNPI, activity_orgtin as servicingProviderOrgtin,
@@ -40,4 +40,4 @@ group by empi
 ) as pa on pv.empi=pa.empi
 group by  track ,pa.rn ,pa.orgn,pa.orgtin ,pa.slid ,pa.sln ,
 pa.pcpnpi,pa.pcpn ,pv.ccsdiseasecode,pv.ccsdiseasecodedescription ,
-visittype,visitsubtype, ftnpi, servicingproviderNPI,servicingProviderOrgtin,outorgflg,outftnpiflg;
+visittype,visitsubtype, ftnpi, servicingproviderNPI,servicingProviderOrgtin,outorgflg,outftnpiflg,measurementdate;
